@@ -12,12 +12,16 @@ var positionCenter : float = 0.0;
 
 var positionState : int = 1; // 0 LEFT 1 CENTER 2 RIGHT
 
-function Start () {
+var animator : Animator;
+var plane : GameObject;
 
-	// Getting the plane object
-	var plane : GameObject;
+function Start () {
 	plane = GameObject.Find("Plane");
-	
+	animator = GetComponent("Animator");
+	initPositions();
+}
+
+function initPositions() {	
 	// Movement offset for every "frame"
 	movementOffset = plane.GetComponent.<Collider>().bounds.size.x / (3*30.0);
 	GetComponent.<Rigidbody>().position.x = plane.transform.position.x;
@@ -32,6 +36,11 @@ function Start () {
 }
 
 function Update () {
+	moveControl();
+	updateAnimation();
+}
+
+function moveControl() {
 	var plane : GameObject;
 	plane = GameObject.Find("Plane");
 	
@@ -80,4 +89,13 @@ function Update () {
 			}
 		}	
 	}
+}
+
+function updateAnimation() {
+	/*if (Input.GetKeyDown(KeyCode.W)) {
+		//int runState = animator.GetInteger("runState");
+		if (runState == 3) runState = 1;
+		else ++runState; 
+		animator.SetInteger("runState",3);
+	}*/
 }
