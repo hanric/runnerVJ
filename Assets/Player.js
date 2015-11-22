@@ -3,6 +3,10 @@
 var player:Hashtable = new Hashtable();
 
 var isChangingSide : boolean = false;
+
+var jumpHeight = 5;
+var speed = 0.1;
+
 var totalOffset : float = 0.0;
 var movementOffset : float = 0.0;
 
@@ -10,7 +14,17 @@ var positionLeft : float = 0.0;
 var positionRight : float = 0.0;
 var positionCenter : float = 0.0;
 
-var positionState : int = 1; // 0 LEFT 1 CENTER 2 RIGHT
+/*
+	0 LEFT
+	1 CENTER
+	2 RIGHT
+*/
+var positionState : int;
+
+/*	0 RUN 
+	1 JUMP
+*/
+var animationState : int; 
 
 var animator : Animator;
 var plane : GameObject;
@@ -18,6 +32,10 @@ var plane : GameObject;
 function Start () {
 	plane = GameObject.Find("Plane");
 	animator = GetComponent("Animator");
+	
+	positionState = 1;
+	animationState = 0;
+	
 	initPositions();
 }
 
@@ -36,18 +54,30 @@ function initPositions() {
 }
 
 function Update () {
-	moveControl();
+	updatePosition();
 	updateAnimation();
 }
 
-function moveControl() {
-	var plane : GameObject;
-	plane = GameObject.Find("Plane");
-	
-	// Z player movement
-	GetComponent.<Rigidbody>().position.z += 0.1;
-	
-	// X player movement
+function updatePosition() {
+	updateZ();
+	updateY();
+	updateX();
+}
+
+function updateZ() {
+	GetComponent.<Rigidbody>().position.z += speed;
+}
+
+function updateY() {
+	if (!isChangingSide) {
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			GetComponent.<Rigidbody>().velocity.y = jumpHeight;
+			animationState = 1; // jump
+		}
+	}
+}
+
+function updateX() {
 	if (!isChangingSide) {
 		if (Input.GetKeyDown(KeyCode.A) && positionState != 0) {
 			--positionState;
@@ -57,7 +87,7 @@ function moveControl() {
 			++positionState;
 			totalOffset = plane.GetComponent.<Collider>().bounds.size.x / 3.0;
 			isChangingSide = true;
-		} 
+		}
 	} else {
 		if (totalOffset < 0.0) { // move left <-
 			GetComponent.<Rigidbody>().position.x -= movementOffset;
@@ -92,10 +122,8 @@ function moveControl() {
 }
 
 function updateAnimation() {
-	/*if (Input.GetKeyDown(KeyCode.W)) {
-		//int runState = animator.GetInteger("runState");
-		if (runState == 3) runState = 1;
-		else ++runState; 
-		animator.SetInteger("runState",3);
-	}*/
+	if (animationState == 1) { // if jump
+		animator.SetInteger("state", animationState);
+		animationState = 0;
+	}
 }
