@@ -25,7 +25,7 @@ public class Zombie : MonoBehaviour {
 	}
 	
 	void updateZ() {
-		GetComponent<Rigidbody> ().position = new Vector3 (0, 0, speed);
+		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, speed);
 	}
 
 	IEnumerator wait() {
