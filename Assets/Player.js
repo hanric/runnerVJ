@@ -3,7 +3,7 @@
 var player:Hashtable = new Hashtable();
 
 var isChangingSide : boolean = false;
-static var isJumping : boolean = false;
+public static var isJumping : boolean = false;
 
 var jumpHeight = 5;
 var speed = 0.1;
@@ -70,7 +70,7 @@ function updateZ() {
 }
 
 function updateY() {
-	if (!isChangingSide && !isJumping) {
+	if (!isChangingSide) {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			GetComponent.<Rigidbody>().velocity.y = jumpHeight;
 			animationState = 1; // jump
