@@ -31,4 +31,13 @@ public class Zombie : MonoBehaviour {
 	IEnumerator wait() {
 		yield return new WaitForSeconds (0.1f);
 	}
+
+	//MANAGE COLLISIONS
+	void OnCollisionEnter(Collision collision) {
+		if (collision.gameObject.tag.Equals("Player")) {
+
+		} else {
+
+		}
+	}
 }
