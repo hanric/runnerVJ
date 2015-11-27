@@ -16,6 +16,10 @@ public class Player : MonoBehaviour {
 	private float positionRight = 0.0f;
 	private float positionCenter = 0.0f;
 
+	//camera
+	private Camera mainCamera;
+	private Camera backCamera;
+
 	/*
 		0 LEFT
 		1 CENTER
@@ -38,11 +42,14 @@ public class Player : MonoBehaviour {
 		positionState = 1;
 		animationState = 0;
 
+		initCameras();
+
 		initPositions ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		manageCamera();
 		updatePosition();
 		updateAnimation();
 	}
@@ -133,4 +140,24 @@ public class Player : MonoBehaviour {
 			animationState = 0;
 		}
 	}
+
+	//CAMERA MANAGEMENT
+		void initCameras() {
+			foreach (Camera c in Camera.allCameras) {
+				if (c.gameObject.name == "Main Camera") {
+					mainCamera = c;
+					mainCamera.enabled = true;
+				} else {
+					backCamera = c;
+					backCamera.enabled = false;
+				}
+			}
+		}
+
+		void manageCamera() {
+			if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyUp(KeyCode.S)) {
+				mainCamera.enabled = !mainCamera.enabled;
+				backCamera.enabled = !backCamera.enabled;
+			}
+		}
 }
