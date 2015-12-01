@@ -34,10 +34,10 @@ public class Zombie : MonoBehaviour {
 
 	//MANAGE COLLISIONS
 	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.tag.Equals("Player")) {
-
-		} else {
-
+		if (collision.gameObject.name.Equals("Player")) {
+			if (gameObject.name.Equals("BackZombie")) {	//zombie from the back (game over)
+				Time.timeScale = 0;
+			}
 		}
 	}
 }
