@@ -32,11 +32,14 @@ public class Zombie : MonoBehaviour {
 		yield return new WaitForSeconds (0.1f);
 	}
 
+	int attackHash = Animator.StringToHash("attack");
+
 	//MANAGE COLLISIONS
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.name.Equals("Player")) {
+			animator.Play("attack");
 			if (gameObject.name.Equals("BackZombie")) {	//zombie from the back (game over)
-				Time.timeScale = 0;
+				//GameMaster.gameOver();
 			}
 		}
 	}
