@@ -5,6 +5,8 @@ public class Player : MonoBehaviour {
 
 	public static float stamina = 80.0f;
 	public float normalStaminaDecrease = -0.05f;
+	public float normalStaminaIncrease = 0.1f;
+	public bool isStaminaIncreasing;
 
 	private bool isChangingSide = false;
 	public static bool isJumping = false;
@@ -48,12 +50,13 @@ public class Player : MonoBehaviour {
 
 		initPositions ();
 
+		isStaminaIncreasing = false;
 		//gameObject.GetComponent<ParticleSystem> ().Stop ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		updateStamina (normalStaminaDecrease, "Normal");
+		updateStamina (0, "Normal");
 		manageCamera();
 		updatePosition();
 		updateAnimation();
@@ -171,18 +174,34 @@ public class Player : MonoBehaviour {
 	// STAMINA
 	public void updateStamina(float qtt, string from) {
 		stamina += qtt;
+		if (from.Equals ("Burguer")) {
+			//gameObject.GetComponent<ParticleSystem> ().Play ();
+		} else if (from.Equals ("Normal")) {
+			if (isStaminaIncreasing) {
+				stamina += normalStaminaIncrease;
+				if (stamina >= 80.0f) {
+					isStaminaIncreasing = false;
+				}
+			} else {
+				stamina += normalStaminaDecrease;
+			}
+		} else if (from.Equals ("Crash")) {
+			stamina = 0.0f;
+			isStaminaIncreasing = true;
+		}
 		if (stamina > 100.0f) {
 			stamina = 100.0f;
 		} else if (stamina <= 0.0f) {
 			stamina = 0.0f;
 		}
 		speed = stamina / 1000.0f;
-		if (from.Equals ("Burguer")) {
-			//gameObject.GetComponent<ParticleSystem> ().Play ();
-		} else if (from.Equals ("Normal")) {
+	}
 
-		} else if (from.Equals ("Crash")) {
-			
+	//MANAGE COLLISIONS
+	void OnCollisionEnter(Collision collision) {
+		if (collision.gameObject.name.Equals("OldCar")) {
+			Destroy(collision.gameObject.GetComponent<BoxCollider>());
+			updateStamina(0, "Crash");
 		}
 	}
 }
