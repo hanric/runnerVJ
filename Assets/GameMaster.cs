@@ -16,14 +16,14 @@ public class GameMaster : MonoBehaviour {
 	void Update () {
 		staminaText.text = "Stamina: " + ((int) Player.stamina).ToString ();
 		if (isGameOver && Time.timeScale > 0) {
-			if (Time.timeScale > 0.1) Time.timeScale -= 0.001f;
-			else Time.timeScale = 0;
+			//if (Time.timeScale > 0.1) Time.timeScale -= 0.001f;
+			//else Time.timeScale = 0;
 		}
 	}
 
 	public static void gameOver() {
 		isGameOver = true;
-		Time.timeScale = 0.2f;
+		Time.timeScale = 0.3f;
 	}
 
 	public static bool getGameOver() {
