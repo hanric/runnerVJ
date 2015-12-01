@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	public static float stamina = 80.0f;
+	public float normalStaminaDecrease = -0.05f;
+
 	private bool isChangingSide = false;
 	public static bool isJumping = false;
 
@@ -38,17 +41,19 @@ public class Player : MonoBehaviour {
 	void Start () {
 		animator = (Animator) GetComponent ("Animator");
 		plane = GameObject.Find ("Plane");
-
 		positionState = 1;
 		animationState = 0;
 
 		initCameras();
 
 		initPositions ();
+
+		//gameObject.GetComponent<ParticleSystem> ().Stop ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		updateStamina (normalStaminaDecrease, "Normal");
 		manageCamera();
 		updatePosition();
 		updateAnimation();
@@ -136,28 +141,48 @@ public class Player : MonoBehaviour {
 
 	void updateAnimation() {
 		if (animationState == 1) { // if jump
-			animator.SetInteger("state", animationState);
+			animator.SetInteger ("state", animationState);
 			animationState = 0;
+		} else {
+			animator.SetFloat ("stamina", stamina);
 		}
 	}
 
 	//CAMERA MANAGEMENT
-		void initCameras() {
-			foreach (Camera c in Camera.allCameras) {
-				if (c.gameObject.name == "Main Camera") {
-					mainCamera = c;
-					mainCamera.enabled = true;
-				} else {
-					backCamera = c;
-					backCamera.enabled = false;
-				}
+	void initCameras() {
+		foreach (Camera c in Camera.allCameras) {
+			if (c.gameObject.name == "Main Camera") {
+				mainCamera = c;
+				mainCamera.enabled = true;
+			} else {
+				backCamera = c;
+				backCamera.enabled = false;
 			}
 		}
+	}
 
-		void manageCamera() {
-			if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyUp(KeyCode.S)) {
-				mainCamera.enabled = !mainCamera.enabled;
-				backCamera.enabled = !backCamera.enabled;
-			}
+	void manageCamera() {
+		if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyUp(KeyCode.S)) {
+			mainCamera.enabled = !mainCamera.enabled;
+			backCamera.enabled = !backCamera.enabled;
 		}
+	}
+	
+	// STAMINA
+	public void updateStamina(float qtt, string from) {
+		stamina += qtt;
+		if (stamina > 100.0f) {
+			stamina = 100.0f;
+		} else if (stamina <= 0.0f) {
+			stamina = 0.0f;
+		}
+		speed = stamina / 1000.0f;
+		if (from.Equals ("Burguer")) {
+			//gameObject.GetComponent<ParticleSystem> ().Play ();
+		} else if (from.Equals ("Normal")) {
+
+		} else if (from.Equals ("Crash")) {
+			
+		}
+	}
 }

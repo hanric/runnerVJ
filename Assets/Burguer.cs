@@ -4,7 +4,7 @@ using System.Collections;
 public class Burguer : MonoBehaviour {
 
 	public float degreesY = 3.0f;
-	public int staminaPlus = 20;
+	public float staminaPlus = 20.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -18,10 +18,7 @@ public class Burguer : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.name.Equals("Player")) {
-			int staminaAux = GameMaster.stamina;
-			staminaAux += staminaPlus;
-			if (staminaAux > 100) GameMaster.stamina = 100;
-			else GameMaster.stamina = staminaAux;
+			other.GetComponent<Player>().updateStamina(staminaPlus, "Burguer");
 			Destroy(gameObject);
 		}
 	}
