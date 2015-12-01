@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour {
-
-	public static int stamina = 80;
+	
 	public Text staminaText;
 
 	// Use this for initialization
@@ -14,6 +13,6 @@ public class GameMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		staminaText.text = "Stamina: " + stamina.ToString ();
+		staminaText.text = "Stamina: " + ((int) Player.stamina).ToString ();
 	}
 }
