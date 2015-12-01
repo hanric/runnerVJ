@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
 	private bool isChangingSide = false;
 	public static bool isJumping = false;
 
-	public int jumpHeight = 5;
+	public int jumpHeight = 9;
 	public float speed = 0.1f;
 
 	private float totalOffset = 0.0f;
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour {
 	void updateY() {
 		if (!isChangingSide && !isJumping) {
 			if (Input.GetKeyDown(KeyCode.Space)) {
-				GetComponent<Rigidbody>().velocity += new Vector3 (0,jumpHeight,0);
+				GetComponent<Rigidbody>().velocity += new Vector3 (25,jumpHeight,0);
 				//GetComponent<Rigidbody>().velocity.y = jumpHeight;
 				animationState = 1; // jump
 				isJumping = true;
