@@ -78,8 +78,18 @@ public class Player : MonoBehaviour {
 
 	void updatePosition() {
 		updateZ();
-		updateY();
+		checkJump ();
 		updateX();
+	}
+
+	void checkJump() {
+		if (!isChangingSide && !isJumping) {
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				Invoke("updateY",0.4f);
+				animationState = 1; // jump
+				isJumping = true;
+			}
+		}
 	}
 
 	void updateZ() {
@@ -88,14 +98,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void updateY() {
-		if (!isChangingSide && !isJumping) {
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				GetComponent<Rigidbody>().velocity += new Vector3 (25,jumpHeight,0);
-				//GetComponent<Rigidbody>().velocity.y = jumpHeight;
-				animationState = 1; // jump
-				isJumping = true;
-			}
-		}
+			GetComponent<Rigidbody>().velocity += new Vector3 (0,jumpHeight,0);
 	}
 
 	void updateX() {
