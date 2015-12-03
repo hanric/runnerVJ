@@ -20,6 +20,7 @@ public class Burguer : MonoBehaviour {
 		if (other.name.Equals("Player")) {
 			other.GetComponent<Player>().updateStamina(staminaPlus, "Burguer");
 			Destroy(gameObject);
+			++GameMaster.burguersCollected;
 		}
 	}
 }
