@@ -207,7 +207,7 @@ public class Player : MonoBehaviour {
 			updateStamina (0, "Crash");
 		} else if (collision.gameObject.CompareTag ("Enemy")) {
 			animator.Play("damageRecieved");
-			updateStamina(-20, null);
+			updateStamina(-20, "Enemy");
 		}
 	}
 }
