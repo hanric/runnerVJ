@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Zombie : MonoBehaviour {
 
-	public float speed = 0.1f;
+	public static float speed = 0.05f;
 	Animator animator;
 
 	// Use this for initialization
 	void Start () {
+
 		animator = (Animator) GetComponent("Animator");
 		// Workaround, the speed of the animation is randomly changed for 0.1 seconds so it seems like they start at different moments
 		animator.speed = Random.Range(0,2000);
@@ -25,7 +26,11 @@ public class Zombie : MonoBehaviour {
 	}
 	
 	void updateZ() {
-		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, speed);
+		if (gameObject.name.Equals ("BackZombie")) {
+			GetComponent<Rigidbody> ().position += new Vector3 (0, 0, speed);
+		} else {
+			GetComponent<Rigidbody> ().position += new Vector3 (0, 0, -speed);
+		}
 	}
 
 	IEnumerator wait() {

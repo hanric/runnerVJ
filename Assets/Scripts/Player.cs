@@ -93,8 +93,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void updateZ() {
-		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, speed);
-		//GetComponent<Rigidbody> ().position = new Vector3 (GetComponent<Rigidbody> ().position.x, GetComponent<Rigidbody> ().position.y, GetComponent<Rigidbody> ().position.z + speed);
+		float realSpeed = speed;
+		if (isJumping && speed < Zombie.speed)
+			realSpeed = Zombie.speed;
+		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, realSpeed);
 	}
 
 	void updateY() {
