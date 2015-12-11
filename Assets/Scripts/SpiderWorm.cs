@@ -4,12 +4,16 @@ using System.Collections;
 public class SpiderWorm : MonoBehaviour {
 
 	Animation anim;
+	SphereCollider sc;
+	BoxCollider bc;
 
 	// Use this for initialization
 	void Start () {
 		anim = gameObject.GetComponent<Animation> ();
-		gameObject.GetComponent<SphereCollider> ().tag = "sphereCollider";
-		gameObject.GetComponent<BoxCollider> ().tag = "boxCollider";
+		sc = gameObject.GetComponent<SphereCollider> ();
+		bc = gameObject.GetComponent<BoxCollider> ();
+		sc.tag = "sphereCollider";
+		bc.tag = "boxCollider";
 	}
 	
 	// Update is called once per frame
@@ -19,14 +23,15 @@ public class SpiderWorm : MonoBehaviour {
 
 	//MANAGE COLLISIONS
 	void OnCollisionEnter(Collision collision) {
-		Debug.Log ("ASLFKJASÑLDGKJAÑLDGSKJA");
-		if (collision.contacts[0].thisCollider.tag.Equals("sphereCollider")) {
-			if (collision.gameObject.name.Equals("Player")) {
-
-				anim.PlayQueued("Attack", QueueMode.PlayNow);
-				anim.PlayQueued("Idle", QueueMode.CompleteOthers);	
+		if (collision.contacts [0].thisCollider == sc) {
+			if (collision.gameObject.name.Equals ("Player")) {
+				Debug.Log ("ASLFKJASÑLDGKJAÑLDGSKJA");
+				anim.PlayQueued ("Attack", QueueMode.PlayNow);
+				anim.PlayQueued ("Idle", QueueMode.CompleteOthers);	
 			}
+			Physics.IgnoreCollision (collision.collider, sc);
+		} else {
+			Physics.IgnoreCollision (collision.collider, bc);
 		}
-		Physics.IgnoreCollision(collision.collider , GetComponent<Collider>());
 	}
 }
