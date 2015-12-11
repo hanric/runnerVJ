@@ -204,12 +204,15 @@ public class Player : MonoBehaviour {
 
 	//MANAGE COLLISIONS
 	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.name.Equals ("OldCar")) {
-			Destroy (collision.gameObject.GetComponent<BoxCollider> ());
-			updateStamina (0, "Crash");
-		} else if (collision.gameObject.CompareTag ("Enemy")) {
-			animator.Play("damageRecieved");
-			updateStamina(-20, "Enemy");
+		if (!(collision.collider.GetType() == typeof(SphereCollider))) {
+			if (collision.gameObject.name.Equals ("OldCar")) {
+				Destroy (collision.gameObject.GetComponent<BoxCollider> ());
+				updateStamina (0, "Crash");
+			} else if (collision.gameObject.CompareTag ("Enemy")) {
+				animator.Play("damageRecieved");
+				updateStamina(-20, "Enemy");
+			}
 		}
+
 	}
 }
