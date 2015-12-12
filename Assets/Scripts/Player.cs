@@ -25,6 +25,10 @@ public class Player : MonoBehaviour {
 	private Camera mainCamera;
 	private Camera backCamera;
 
+	//particles
+	public ParticleSystem recoverParticles;
+	public ParticleSystem bloodParticles;
+
 	/*
 		0 LEFT
 		1 CENTER
@@ -180,6 +184,7 @@ public class Player : MonoBehaviour {
 	public void updateStamina(float qtt, string from) {
 		stamina += qtt;
 		if (from.Equals ("Burguer")) {
+			setParticles(true);
 			//gameObject.GetComponent<ParticleSystem> ().Play ();
 		} else if (from.Equals ("Normal")) {
 			if (isStaminaIncreasing) {
@@ -210,9 +215,22 @@ public class Player : MonoBehaviour {
 				updateStamina (0, "Crash");
 			} else if (collision.gameObject.CompareTag ("Enemy")) {
 				animator.Play("damageRecieved");
+				setParticles(false);
 				updateStamina(-20, "Enemy");
 			}
 		}
 
+	}
+
+	void setParticles(bool isRecover) {
+		ParticleSystem particleClone;
+		if (isRecover) {
+			particleClone = (ParticleSystem)Instantiate (recoverParticles, gameObject.transform.position, gameObject.transform.rotation);
+		} else {
+			particleClone = (ParticleSystem)Instantiate (bloodParticles, gameObject.transform.position, gameObject.transform.rotation);
+			particleClone.transform.position += new Vector3(0, 1.4f, 0);
+		}
+		particleClone.transform.SetParent (gameObject.transform);
+		Destroy (particleClone, particleClone.duration);
 	}
 }
