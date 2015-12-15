@@ -89,7 +89,8 @@ public class Player : MonoBehaviour {
 	void checkJump() {
 		if (!isChangingSide && !isJumping) {
 			if (Input.GetKeyDown(KeyCode.Space)) {
-				Invoke("updateY",0.4f);
+				//Invoke("updateY",0.4f);
+				updateY();
 				animationState = 1; // jump
 				isJumping = true;
 			}
@@ -183,7 +184,7 @@ public class Player : MonoBehaviour {
 	// STAMINA
 	public void updateStamina(float qtt, string from) {
 		stamina += qtt;
-		if (from.Equals ("Burguer")) {
+		if (from.Equals ("Burguer") || from.Equals("Donut")) {
 			setParticles(true);
 			//gameObject.GetComponent<ParticleSystem> ().Play ();
 		} else if (from.Equals ("Normal")) {
