@@ -20,7 +20,7 @@ public class Donut : MonoBehaviour {
 		if (other.name.Equals("Player")) {
 			other.GetComponent<Player>().updateStamina(staminaPlus, "Donut");
 			Destroy(gameObject);
-			++GameMaster.burguersCollected;
+			++GameMaster.donutsCollected;
 		}
 	}
 }

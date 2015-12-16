@@ -13,6 +13,9 @@ public class GameMaster : MonoBehaviour {
 	public Text burguerText;
 	public static int burguersCollected;
 
+	public Text donutText;
+	public static int donutsCollected;
+
 	// Use this for initialization
 	void Start () {
 		isGameOver = false;
@@ -21,6 +24,9 @@ public class GameMaster : MonoBehaviour {
 
 		burguersCollected = 0;
 		burguerText.text = "x0";
+
+		donutsCollected = 0;
+		donutText.text = "x0";
 	}
 	
 	// Update is called once per frame
@@ -30,6 +36,7 @@ public class GameMaster : MonoBehaviour {
 		StaminaBar.rectTransform.anchoredPosition = new Vector2 (originalStaminaX, StaminaBar.rectTransform.anchoredPosition.y);
 
 		burguerText.text = "x" + burguersCollected.ToString ();
+		donutText.text = "x" + donutsCollected.ToString ();
 
 		if (isGameOver && Time.timeScale > 0) {
 			//if (Time.timeScale > 0.1) Time.timeScale -= 0.001f;
