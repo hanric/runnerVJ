@@ -4,7 +4,7 @@ using System.Collections;
 public class Donut : MonoBehaviour {
 
 	public float degreesY = 3.0f;
-	public float staminaPlus = 5.0f;
+	public float staminaPlus = 10.0f;
 
 	// Use this for initialization
 	void Start () {
