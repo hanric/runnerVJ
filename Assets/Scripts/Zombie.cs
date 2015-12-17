@@ -18,7 +18,9 @@ public class Zombie : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		updatePosition ();
+		if (!GameMaster.isPaused) {
+			updatePosition ();
+		}
 	}
 
 	void updatePosition() {

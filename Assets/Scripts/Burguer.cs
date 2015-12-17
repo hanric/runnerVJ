@@ -13,7 +13,9 @@ public class Burguer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate(0,degreesY,0,Space.World);
+		if (!GameMaster.isPaused) {
+			transform.Rotate (0, degreesY, 0, Space.World);
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {

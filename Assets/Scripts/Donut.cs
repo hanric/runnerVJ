@@ -4,7 +4,7 @@ using System.Collections;
 public class Donut : MonoBehaviour {
 
 	public float degreesY = 3.0f;
-	public float staminaPlus = 10.0f;
+	public float staminaPlus = 5.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +13,9 @@ public class Donut : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate(0,degreesY,0,Space.World);
+		if (!GameMaster.isPaused) {
+			transform.Rotate (0, degreesY, 0, Space.World);
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {

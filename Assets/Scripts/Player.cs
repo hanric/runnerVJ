@@ -29,6 +29,8 @@ public class Player : MonoBehaviour {
 	public ParticleSystem recoverParticles;
 	public ParticleSystem bloodParticles;
 
+	public GameObject theEnd;
+
 	/*
 		0 LEFT
 		1 CENTER
@@ -60,10 +62,13 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		updateStamina (0, "Normal");
-		manageCamera();
-		updatePosition();
-		updateAnimation();
+		if (!GameMaster.isPaused) {
+			updateStamina (0, "Normal");
+			manageCamera ();
+			updatePosition ();
+			updateAnimation ();
+			checkEnd();
+		}
 	}
 
 	void initPositions() {
@@ -233,5 +238,11 @@ public class Player : MonoBehaviour {
 		}
 		particleClone.transform.SetParent (gameObject.transform);
 		Destroy (particleClone, particleClone.duration);
+	}
+
+	void checkEnd() {
+		if (gameObject.transform.position.z >= theEnd.transform.position.z) {
+			GameMaster.hasEnded = true;
+		}
 	}
 }
