@@ -240,6 +240,10 @@ public class Player : MonoBehaviour {
 				animator.Play("damageRecieved");
 				setParticles(false);
 				updateStamina(-20, "Enemy");
+			} else if (collision.gameObject.CompareTag("Obstacle")) {
+				animator.Play("damageRecieved");
+				setParticles(false);
+				updateStamina(-10, "Enemy");
 			}
 		}
 
