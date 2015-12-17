@@ -94,6 +94,11 @@ public class GameMaster : MonoBehaviour {
 
 	void endLevel() {
 		DrawEndGraphics ();
+
+	}
+
+	void newLevel() {
+
 	}
 
 	public void DrawEndGraphics() {

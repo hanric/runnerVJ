@@ -20,7 +20,7 @@ public class Trees : MonoBehaviour {
 		InvokeRepeating ("createTreeAtRandomTime", 0.0f, 1.0f);
 		createFirstPlanes ();
 		createPlane ();
-		InvokeRepeating ("createPlane", 0.0f, 5.25f);
+		InvokeRepeating ("createPlane", 0.0f, 4.8f);
 	}
 	
 	// Update is called once per frame
