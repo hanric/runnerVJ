@@ -114,8 +114,10 @@ public class Player : MonoBehaviour {
 
 	void updateZ() {
 		float realSpeed = speed;
-		if (isJumping && speed < Zombie.speed)
+		if (isJumping && speed < Zombie.speed) {
 			realSpeed = Zombie.speed;
+		}
+
 		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, realSpeed);
 	}
 
@@ -201,7 +203,6 @@ public class Player : MonoBehaviour {
 		stamina += qtt;
 		if (from.Equals ("Burguer") || from.Equals ("Donut")) {
 			setParticles (true);
-			//gameObject.GetComponent<ParticleSystem> ().Play ();
 		} else if (from.Equals ("Normal")) {
 			if (isStaminaIncreasing) {
 				stamina += normalStaminaIncrease;
@@ -209,7 +210,9 @@ public class Player : MonoBehaviour {
 					isStaminaIncreasing = false;
 				}
 			} else {
-				stamina += normalStaminaDecrease;
+				if (!(speed <= Zombie.speed / 3.0f)) {
+					stamina += normalStaminaDecrease;
+				}
 			}
 		} else if (from.Equals ("Crash")) {
 			stamina = 0.0f;
