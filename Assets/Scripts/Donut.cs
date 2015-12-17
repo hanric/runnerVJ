@@ -6,9 +6,12 @@ public class Donut : MonoBehaviour {
 	public float degreesY = 3.0f;
 	public float staminaPlus = 5.0f;
 
+	//sound
+	AudioClip donutPick;
+
 	// Use this for initialization
 	void Start () {
-	
+		donutPick = (AudioClip)Resources.Load ("sounds/donut", typeof(AudioClip));
 	}
 	
 	// Update is called once per frame
@@ -20,6 +23,7 @@ public class Donut : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.name.Equals("Player")) {
+			AudioSource.PlayClipAtPoint(donutPick, transform.position, 0.5f);
 			other.GetComponent<Player>().updateStamina(staminaPlus, "Donut");
 			Destroy(gameObject);
 			++GameMaster.donutsCollected;

@@ -6,6 +6,15 @@ public class SpiderWorm : MonoBehaviour {
 	Animation anim;
 	SphereCollider sc;
 	BoxCollider bc;
+	
+	int WALKING_SOUND_LENGTH = 0;
+	int ATTACKING_SOUND_LENGTH = 3;
+	
+	AudioClip[] clipsWalking;	//standing presence sound (approaching will increment)
+	AudioClip[] clipsAttacking;
+	
+	AudioSource audioWalk;
+	AudioSource audioAttack;
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +23,7 @@ public class SpiderWorm : MonoBehaviour {
 		bc = gameObject.GetComponent<BoxCollider> ();
 		sc.tag = "sphereCollider";
 		bc.tag = "boxCollider";
+		initSound ();
 	}
 	
 	// Update is called once per frame
@@ -25,13 +35,36 @@ public class SpiderWorm : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		if (collision.contacts [0].thisCollider == sc) {
 			if (collision.gameObject.name.Equals ("Player")) {
-				Debug.Log ("ASLFKJASÑLDGKJAÑLDGSKJA");
 				anim.PlayQueued ("Attack", QueueMode.PlayNow);
-				anim.PlayQueued ("Idle", QueueMode.CompleteOthers);	
+				anim.PlayQueued ("Idle", QueueMode.CompleteOthers);
 			}
 			Physics.IgnoreCollision (collision.collider, sc);
 		} else {
 			Physics.IgnoreCollision (collision.collider, bc);
+			int randomSound = (int)Random.Range(0, ATTACKING_SOUND_LENGTH-1);
+			audioAttack.clip = clipsAttacking[randomSound];
+			audioAttack.Play();
 		}
+	}
+
+	//sound
+	void initSound() {
+		/*
+		clipsWalking = new AudioClip[WALKING_SOUND_LENGTH];
+		for (int i = 1; i <= WALKING_SOUND_LENGTH; ++i) {
+			clipsWalking[i-1] = (AudioClip)Resources.Load ("sounds/zombieWalking"+i, typeof(AudioClip));
+		}
+		*/
+
+		clipsAttacking = new AudioClip[ATTACKING_SOUND_LENGTH];
+		for (int i = 1; i <= ATTACKING_SOUND_LENGTH; ++i) {
+			clipsAttacking[i-1] = (AudioClip)Resources.Load ("sounds/caveWormAttack"+i, typeof(AudioClip));
+		}
+		
+		audioWalk = gameObject.AddComponent<AudioSource> ();
+		audioWalk.spatialBlend = 1.0f;
+		audioWalk.volume = 0.6f;
+		
+		audioAttack = gameObject.AddComponent<AudioSource> ();
 	}
 }
