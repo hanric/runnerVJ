@@ -94,11 +94,12 @@ public class GameMaster : MonoBehaviour {
 
 	void endLevel() {
 		DrawEndGraphics ();
-
-	}
-
-	void newLevel() {
-
+		string currentLevel = Application.loadedLevelName;
+		if (currentLevel.Equals("scene1")) {
+			Application.LoadLevel ("scene2");
+		} else if (currentLevel.Equals("scene2")) {
+			Application.LoadLevel ("menu");
+		}
 	}
 
 	public void DrawEndGraphics() {
