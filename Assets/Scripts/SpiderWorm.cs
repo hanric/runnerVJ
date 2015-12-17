@@ -21,8 +21,6 @@ public class SpiderWorm : MonoBehaviour {
 		anim = gameObject.GetComponent<Animation> ();
 		sc = gameObject.GetComponent<SphereCollider> ();
 		bc = gameObject.GetComponent<BoxCollider> ();
-		sc.tag = "sphereCollider";
-		bc.tag = "boxCollider";
 		initSound ();
 	}
 	
@@ -39,31 +37,29 @@ public class SpiderWorm : MonoBehaviour {
 				anim.PlayQueued ("Idle", QueueMode.CompleteOthers);
 			}
 			Physics.IgnoreCollision (collision.collider, sc);
-		} else {
-			Physics.IgnoreCollision (collision.collider, bc);
 			int randomSound = (int)Random.Range(0, ATTACKING_SOUND_LENGTH-1);
 			audioAttack.clip = clipsAttacking[randomSound];
 			audioAttack.Play();
+		} else {
+			Physics.IgnoreCollision (collision.collider, bc);
 		}
 	}
 
 	//sound
 	void initSound() {
-		/*
 		clipsWalking = new AudioClip[WALKING_SOUND_LENGTH];
 		for (int i = 1; i <= WALKING_SOUND_LENGTH; ++i) {
 			clipsWalking[i-1] = (AudioClip)Resources.Load ("sounds/zombieWalking"+i, typeof(AudioClip));
 		}
-		*/
+
+		audioWalk = gameObject.AddComponent<AudioSource> ();
+		audioWalk.spatialBlend = 1.0f;
+		audioWalk.volume = 0.6f;
 
 		clipsAttacking = new AudioClip[ATTACKING_SOUND_LENGTH];
 		for (int i = 1; i <= ATTACKING_SOUND_LENGTH; ++i) {
 			clipsAttacking[i-1] = (AudioClip)Resources.Load ("sounds/caveWormAttack"+i, typeof(AudioClip));
 		}
-		
-		audioWalk = gameObject.AddComponent<AudioSource> ();
-		audioWalk.spatialBlend = 1.0f;
-		audioWalk.volume = 0.6f;
 		
 		audioAttack = gameObject.AddComponent<AudioSource> ();
 	}
