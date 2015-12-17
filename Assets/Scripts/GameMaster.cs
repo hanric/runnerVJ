@@ -46,7 +46,9 @@ public class GameMaster : MonoBehaviour {
 
 	public static void gameOver() {
 		isGameOver = true;
-		Time.timeScale = 0.3f;
+		Player player = (Player)FindObjectOfType (typeof(Player));
+		player.die ();
+		//Time.timeScale = 0.3f;
 	}
 
 	public static bool getGameOver() {

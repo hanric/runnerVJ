@@ -41,6 +41,14 @@ public class Player : MonoBehaviour {
 	*/
 	int animationState;
 
+	//sound
+	AudioSource audioAmbient;
+	AudioSource audioJump;
+	AudioSource audioHit;
+	AudioSource audioDeath;
+	AudioSource audioWin;
+
+
 	Animator animator;
 	GameObject plane;
 
@@ -49,6 +57,8 @@ public class Player : MonoBehaviour {
 		plane = GameObject.Find ("Plane");
 		positionState = 1;
 		animationState = 0;
+
+		initSound ();
 
 		initCameras();
 
@@ -89,7 +99,7 @@ public class Player : MonoBehaviour {
 	void checkJump() {
 		if (!isChangingSide && !isJumping) {
 			if (Input.GetKeyDown(KeyCode.Space)) {
-				//Invoke("updateY",0.4f);
+				audioJump.Play();
 				updateY();
 				animationState = 1; // jump
 				isJumping = true;
@@ -184,8 +194,8 @@ public class Player : MonoBehaviour {
 	// STAMINA
 	public void updateStamina(float qtt, string from) {
 		stamina += qtt;
-		if (from.Equals ("Burguer") || from.Equals("Donut")) {
-			setParticles(true);
+		if (from.Equals ("Burguer") || from.Equals ("Donut")) {
+			setParticles (true);
 			//gameObject.GetComponent<ParticleSystem> ().Play ();
 		} else if (from.Equals ("Normal")) {
 			if (isStaminaIncreasing) {
@@ -198,8 +208,12 @@ public class Player : MonoBehaviour {
 			}
 		} else if (from.Equals ("Crash")) {
 			stamina = 0.0f;
+			audioHit.Play ();
 			isStaminaIncreasing = true;
+		} else if (from.Equals ("Enemy")) {
+			audioHit.Play();
 		}
+
 		if (stamina > 100.0f) {
 			stamina = 100.0f;
 		} else if (stamina <= 0.0f) {
@@ -233,5 +247,33 @@ public class Player : MonoBehaviour {
 		}
 		particleClone.transform.SetParent (gameObject.transform);
 		Destroy (particleClone, particleClone.duration);
+	}
+
+	//sound
+	void initSound() {
+		audioAmbient = gameObject.AddComponent<AudioSource> ();
+		audioAmbient.clip = (AudioClip)Resources.Load ("sounds/ambient", typeof(AudioClip));
+		audioAmbient.loop = true;
+		audioAmbient.Play ();
+
+		audioJump = gameObject.AddComponent<AudioSource> ();
+		audioJump.clip = (AudioClip)Resources.Load ("sounds/playerJump", typeof(AudioClip));
+
+		audioHit = gameObject.AddComponent<AudioSource> ();
+		audioHit.clip = (AudioClip)Resources.Load ("sounds/playerHit", typeof(AudioClip));
+
+		audioDeath = gameObject.AddComponent<AudioSource> ();
+		audioDeath.clip = (AudioClip)Resources.Load ("sounds/playerDie", typeof(AudioClip));
+
+		audioWin = gameObject.AddComponent<AudioSource> ();
+		audioWin.clip = (AudioClip)Resources.Load ("sounds/playerHit", typeof(AudioClip));
+	}
+
+	public void die() {
+		audioDeath.Play ();
+	}
+
+	void win() {
+		audioWin.Play ();
 	}
 }
