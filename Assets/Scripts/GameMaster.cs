@@ -46,7 +46,7 @@ public class GameMaster : MonoBehaviour {
 
 		pauseText.enabled = false;
 
-		//StartCoroutine (DrawEndGraphics());
+		pause ();
 	}
 	
 	// Update is called once per frame

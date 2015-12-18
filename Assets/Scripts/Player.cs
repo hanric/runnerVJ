@@ -44,11 +44,11 @@ public class Player : MonoBehaviour {
 	int animationState;
 
 	//sound
-	AudioSource audioAmbient;
 	AudioSource audioJump;
 	AudioSource audioHit;
 	AudioSource audioDeath;
 	AudioSource audioWin;
+	AudioSource audioAmbient;
 
 
 	Animator animator;
