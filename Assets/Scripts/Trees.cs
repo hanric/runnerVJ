@@ -13,6 +13,8 @@ public class Trees : MonoBehaviour {
 	public GameObject plane;
 	List<GameObject> planes;
 
+	float originalY = 0.0f;
+
 	// Use this for initialization
 	void Start () {
 		trees = new List<GameObject> ();
@@ -56,6 +58,7 @@ public class Trees : MonoBehaviour {
 	void createPlane() {
 		GameObject planeClone = (GameObject) Instantiate (plane, new Vector3 (7.5f, 0.0f, 65.0f), new Quaternion (0, 0, 0, 0));
 		planes.Add (planeClone);
+		originalY -= 0.05f;
 	}
 
 	void updatePositions() {

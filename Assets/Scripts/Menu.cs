@@ -38,7 +38,7 @@ public class Menu : MonoBehaviour {
 	}
 
 	void PlayClick() {
-		Application.LoadLevel ("scene1");
+		Application.LoadLevel ("tutorial");
 	}
 
 	void ControlsClick() {

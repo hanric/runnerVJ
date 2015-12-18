@@ -28,7 +28,7 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isGameOver = false;
-		isPaused = false;
+		unpause ();
 		hasEnded = false;
 		originalStaminaWidth = StaminaBar.rectTransform.sizeDelta.x;
 		originalStaminaX = StaminaBar.rectTransform.anchoredPosition.x;
@@ -97,7 +97,9 @@ public class GameMaster : MonoBehaviour {
 	void endLevel() {
 		DrawEndGraphics ();
 		string currentLevel = Application.loadedLevelName;
-		if (currentLevel.Equals("scene1")) {
+		if (currentLevel.Equals("tutorial")) {
+			Application.LoadLevel ("scene1");
+		} else if (currentLevel.Equals("scene1")) {
 			Application.LoadLevel ("scene2");
 		} else if (currentLevel.Equals("scene2")) {
 			Application.LoadLevel ("menu");
