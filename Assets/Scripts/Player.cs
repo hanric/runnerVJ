@@ -102,7 +102,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void checkJump() {
-		if (!isChangingSide && !isJumping) {
+		if (!isJumping) {
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				audioJump.Play();
 				updateY();
