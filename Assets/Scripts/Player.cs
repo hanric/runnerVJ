@@ -119,7 +119,7 @@ public class Player : MonoBehaviour {
 			realSpeed = Zombie.speed;
 		}
 
-		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, realSpeed);
+		GetComponent<Rigidbody> ().position += new Vector3 (0, 0, realSpeed * Time.deltaTime);
 	}
 
 	void updateY() {
@@ -228,7 +228,7 @@ public class Player : MonoBehaviour {
 		} else if (stamina <= 0.0f) {
 			stamina = 0.0f;
 		}
-		speed = stamina / 1000.0f;
+		speed = stamina / 15.0f;
 	}
 
 	//MANAGE COLLISIONS

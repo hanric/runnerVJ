@@ -21,6 +21,8 @@ public class GameMaster : MonoBehaviour {
 	public Text finalPointsText;
 	int finalPoints;
 
+	public Text pauseText;
+
 	int pointsPerDonut = 10;
 	int pointsPerBurguer = 50;
 	int pointsPerStamina = 10;
@@ -41,6 +43,8 @@ public class GameMaster : MonoBehaviour {
 
 		finalPoints = 0;
 		finalPointsText.enabled = false;
+
+		pauseText.enabled = false;
 
 		//StartCoroutine (DrawEndGraphics());
 	}
@@ -87,11 +91,13 @@ public class GameMaster : MonoBehaviour {
 	void pause() {
 		isPaused = true;
 		Time.timeScale = 0.0f;
+		if (!hasEnded) pauseText.enabled = true;
 	}
 
-	public static void unpause() {
+	public void unpause() {
 		isPaused = false;
 		Time.timeScale = 1.0f;
+		pauseText.enabled = false;
 	}
 
 	void endLevel() {

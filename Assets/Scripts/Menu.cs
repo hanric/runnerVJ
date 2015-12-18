@@ -30,11 +30,16 @@ public class Menu : MonoBehaviour {
 		});
 		isAboutShowing = false;
 		AboutInfoImage.gameObject.SetActive (false);
+		unpause ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+	}
+
+	public static void unpause() {
+		Time.timeScale = 1.0f;
 	}
 
 	void PlayClick() {
