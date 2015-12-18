@@ -42,6 +42,7 @@ public class GameMaster : MonoBehaviour {
 		finalPoints = 0;
 		finalPointsText.enabled = false;
 
+		pause ();
 		//StartCoroutine (DrawEndGraphics());
 	}
 	
