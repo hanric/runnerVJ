@@ -28,6 +28,8 @@ public class GameMaster : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isGameOver = false;
+		isPaused = false;
+		hasEnded = false;
 		originalStaminaWidth = StaminaBar.rectTransform.sizeDelta.x;
 		originalStaminaX = StaminaBar.rectTransform.anchoredPosition.x;
 

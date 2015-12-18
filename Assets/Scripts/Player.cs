@@ -55,6 +55,7 @@ public class Player : MonoBehaviour {
 	GameObject plane;
 
 	void Start () {
+		stamina = 80.0f;
 		animator = (Animator) GetComponent ("Animator");
 		plane = GameObject.Find ("Plane");
 		positionState = 1;
